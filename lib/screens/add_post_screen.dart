@@ -1,8 +1,13 @@
+// ignore_for_file: unused_import
+
 import 'dart:io';
 
+import 'package:my_app/models/post.dart';
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:flutter/material.dart';
+import 'package:my_app/main.dart';
+import 'package:my_app/screens/add_post_screen.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddPostScreen extends StatefulWidget {
@@ -29,10 +34,28 @@ class _AddPostScreenState extends State<AddPostScreen> {
     });
   }
 
+  submitData() async {
+    final isValid = _formKey.currentState!.validate();
+
+    if (isValid) {
+      Hive.box<Post>('Post').add(
+        Post(title: title, description: description, imageUrl: _image!.path),
+      );
+      Navigator.of(context).pop();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Create a Post'),
+        actions: [
+          IconButton(
+            onPressed: submitData,
+            icon: const Icon(Icons.save),
+          ),
+        ],
       ),
       body: SafeArea(
         child: Form(

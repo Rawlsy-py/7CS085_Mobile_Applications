@@ -1,9 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:my_app/main.dart';
 import 'package:my_app/models/post.dart';
 import 'package:my_app/screens/add_post_screen.dart';
+import 'package:my_app/screens/view_post_screen.dart';
 
 class PostListScreen extends StatefulWidget {
   const PostListScreen({super.key});
@@ -27,9 +28,36 @@ class _PostListScreenState extends State<PostListScreen> {
               itemCount: box.length,
               itemBuilder: (ctx, i) {
                 final post = box.getAt(i);
-                return Card(
-                  child: ListTile(
-                    title: Text(post!.title.toString()),
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ListTile(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: ((ctx) => ViewPostScreen(
+                                    title: post.title,
+                                    description: post.description,
+                                    imageUrl: post.imageUrl)),
+                            ),
+                          );
+                        },
+                        leading: Image.file(
+                          File(
+                            post!.imageUrl.toString(),
+                          ),
+                        ),
+                        title: Text(post.title.toString()),
+                        trailing: IconButton(
+                          onPressed: () {
+                            box.deleteAt(i);
+                          },
+                          icon: const Icon(Icons.delete),
+                        ),
+                      ),
+                    ),
                   ),
                 );
               },
