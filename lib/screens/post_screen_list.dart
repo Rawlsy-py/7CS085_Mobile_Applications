@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:my_app/main.dart';
 import 'package:my_app/models/post.dart';
+import 'package:my_app/screens/add_post_screen.dart';
 
 class PostListScreen extends StatefulWidget {
   const PostListScreen({super.key});
@@ -37,7 +38,14 @@ class _PostListScreenState extends State<PostListScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {}, label: const Text('+ | Add Post')),
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (ctx) => const AddPostScreen(),
+              ),
+            );
+          },
+          label: const Text('+ | Add Post')),
     );
   }
 }
