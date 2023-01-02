@@ -26,7 +26,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
 
   getImage() async {
     final image =
-        await ImagePicker.platform.getImage(source: ImageSource.camera);
+        await ImagePicker.platform.getImage(source: ImageSource.gallery);
 
     setState(() {
       _image = image;
