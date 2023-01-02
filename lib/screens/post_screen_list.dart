@@ -38,9 +38,9 @@ class _PostListScreenState extends State<PostListScreen> {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: ((ctx) => ViewPostScreen(
-                                    title: post.title,
-                                    description: post.description,
-                                    imageUrl: post.imageUrl)),
+                                  title: post.title,
+                                  description: post.description,
+                                  imageUrl: post.imageUrl)),
                             ),
                           );
                         },
@@ -73,7 +73,7 @@ class _PostListScreenState extends State<PostListScreen> {
               ),
             );
           },
-          label: const Text('+ | Add Post')),
+          label: const Text('Add Post')),
     );
   }
 }

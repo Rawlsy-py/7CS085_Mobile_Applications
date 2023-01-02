@@ -18,7 +18,6 @@ class AddPostScreen extends StatefulWidget {
 }
 
 class _AddPostScreenState extends State<AddPostScreen> {
-  @override
   final _formKey = GlobalKey<FormState>();
 
   XFile? _image;
@@ -103,7 +102,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: getImage,
-        child: const Icon(Icons.camera),
+        child: const Icon(Icons.collections),
       ),
     );
   }
