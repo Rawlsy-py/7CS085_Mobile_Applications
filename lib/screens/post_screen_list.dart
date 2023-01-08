@@ -20,6 +20,15 @@ class _PostListScreenState extends State<PostListScreen> {
       ValueNotifier(Hive.box<Post>('post'));
 
   @override
+  void initState() {
+    super.initState();
+    Hive.initFlutter();
+    Hive.openBox<Post>('post').then((box) {
+      boxNotifier.value = box;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -114,5 +123,6 @@ class _PostListScreenState extends State<PostListScreen> {
     );
   }
 }
+
 
 // comment to force commit
