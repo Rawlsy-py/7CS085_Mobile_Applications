@@ -8,8 +8,6 @@ import 'package:my_app/screens/view_post_screen.dart';
 
 import 'edit_post_screen.dart';
 
-
-
 class PostListScreen extends StatefulWidget {
   const PostListScreen({super.key});
 
@@ -23,6 +21,15 @@ class _PostListScreenState extends State<PostListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('7CS085 - Mobile App'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () {
+              // To refresh the list, you can simply call setState()
+              setState(() {});
+            },
+          ),
+        ],
       ),
       body: SafeArea(
           child: ValueListenableBuilder(
