@@ -20,19 +20,22 @@ class PostAdapter extends TypeAdapter<Post> {
       title: fields[0] as String?,
       description: fields[1] as String?,
       imageUrl: fields[2] as String?,
+      dateTime: fields[3] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Post obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
       ..write(obj.description)
       ..writeByte(2)
-      ..write(obj.imageUrl);
+      ..write(obj.imageUrl)
+      ..writeByte(3)
+      ..write(obj.dateTime);
   }
 
   @override
