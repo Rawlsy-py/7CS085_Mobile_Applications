@@ -6,6 +6,8 @@ import 'package:my_app/models/post.dart';
 import 'package:my_app/screens/add_post_screen.dart';
 import 'package:my_app/screens/view_post_screen.dart';
 
+import 'edit_post_screen.dart';
+
 class PostListScreen extends StatefulWidget {
   const PostListScreen({super.key});
 
@@ -50,11 +52,31 @@ class _PostListScreenState extends State<PostListScreen> {
                           ),
                         ),
                         title: Text(post.title.toString()),
-                        trailing: IconButton(
-                          onPressed: () {
-                            box.deleteAt(i);
-                          },
-                          icon: const Icon(Icons.delete),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: ((ctx) => EditPostScreen(
+                                          title: post.title,
+                                          description: post.description,
+                                          imageUrl: post.imageUrl,
+                                          index: i,
+                                        )),
+                                  ),
+                                );
+                              },
+                              icon: const Icon(Icons.edit),
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                box.deleteAt(i);
+                              },
+                              icon: const Icon(Icons.delete),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -69,11 +91,12 @@ class _PostListScreenState extends State<PostListScreen> {
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (ctx) => const AddPostScreen(),
+                // ignore: prefer_const_constructors
+                builder: (ctx) => AddPostScreen(),
               ),
             );
           },
-          label: const Text('Add Post')),
+          label: const Text('Add a Post')),
     );
   }
 }

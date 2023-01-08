@@ -32,9 +32,11 @@ class ViewPostScreen extends StatelessWidget {
               const SizedBox(
                 height: 50,
               ),
-              Image.file(
-                File(imageUrl!),
-              ),
+              imageUrl == null
+                  ? Container()
+                  : Image.file(
+                      File(imageUrl!),
+                    ),
             ],
           ),
         ),

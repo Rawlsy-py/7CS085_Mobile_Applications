@@ -38,7 +38,12 @@ class _AddPostScreenState extends State<AddPostScreen> {
 
     if (isValid) {
       Hive.box<Post>('Post').add(
-        Post(title: title, description: description, imageUrl: _image!.path),
+        Post(
+          title: title,
+          description: description,
+          imageUrl: _image?.path,
+          dateTime: DateTime.now().toIso8601String(),
+        ),
       );
       Navigator.of(context).pop();
     }

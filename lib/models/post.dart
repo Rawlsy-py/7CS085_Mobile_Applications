@@ -12,10 +12,13 @@ class Post {
   String? description;
   @HiveField(2)
   String? imageUrl;
+  @HiveField(3)
+  String? dateTime;
 
   Post({
-    @required this.title,
-    @required this.description,
-    @required this.imageUrl,
+    this.title,
+    this.description,
+    this.imageUrl,
+    this.dateTime,
   });
 }
