@@ -13,7 +13,9 @@ void main() async {
   Directory directory = await getApplicationDocumentsDirectory();
   Hive.init(directory.path);
   Hive.registerAdapter<Post>(PostAdapter());
-  Hive.openBox<Post>('post');
+
+  // Wait for the 'post' box to be opened before running the rest of the main function
+  await Hive.openBox<Post>('post');
 
   runApp(const MyApp());
 }
@@ -29,4 +31,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
