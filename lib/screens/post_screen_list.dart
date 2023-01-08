@@ -16,6 +16,9 @@ class PostListScreen extends StatefulWidget {
 }
 
 class _PostListScreenState extends State<PostListScreen> {
+  final ValueNotifier<Box<Post>> boxNotifier =
+      ValueNotifier(Hive.box<Post>('post'));
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,14 +28,16 @@ class _PostListScreenState extends State<PostListScreen> {
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: () {
-              setState(() {});
+              // Update the value of the ValueNotifier object
+              boxNotifier.value = Hive.box<Post>('post');
             },
           ),
         ],
       ),
       body: SafeArea(
           child: ValueListenableBuilder(
-        valueListenable: Hive.box<Post>('post').listenable(),
+        valueListenable:
+            boxNotifier, // Use the ValueNotifier object as the valueListenable
         builder: (context, Box<Post> box, _) {
           return ListView.builder(
             itemCount: box.length,
@@ -54,9 +59,13 @@ class _PostListScreenState extends State<PostListScreen> {
                           ),
                         );
                       },
-                      leading: Image.file(
-                        File(
-                          post!.imageUrl.toString(),
+                      leading: SizedBox(
+                        width: 1,
+                        height: 1,
+                        child: Image.file(
+                          File(
+                            post!.imageUrl.toString(),
+                          ),
                         ),
                       ),
                       title: Text(post.title.toString()),

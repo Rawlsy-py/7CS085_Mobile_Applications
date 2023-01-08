@@ -38,7 +38,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
     final isValid = _formKey.currentState!.validate();
 
     if (isValid) {
-      Hive.box<Post>('Post').add(
+      Hive.box<Post>('post').add(
         Post(
           title: title,
           description: description,
