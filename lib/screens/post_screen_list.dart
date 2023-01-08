@@ -25,7 +25,6 @@ class _PostListScreenState extends State<PostListScreen> {
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: () {
-              // To refresh the list, you can simply call setState()
               setState(() {});
             },
           ),
