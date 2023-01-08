@@ -8,6 +8,8 @@ import 'package:my_app/screens/view_post_screen.dart';
 
 import 'edit_post_screen.dart';
 
+
+
 class PostListScreen extends StatefulWidget {
   const PostListScreen({super.key});
 
@@ -23,76 +25,73 @@ class _PostListScreenState extends State<PostListScreen> {
         title: const Text('7CS085 - Mobile App'),
       ),
       body: SafeArea(
-        child: ValueListenableBuilder(
-          valueListenable: Hive.box<Post>('post').listenable(),
-          builder: (context, Box<Post> box, _) {
-            return ListView.builder(
-              itemCount: box.length,
-              itemBuilder: (ctx, i) {
-                final post = box.getAt(i);
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ListTile(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: ((ctx) => ViewPostScreen(
-                                  title: post.title,
-                                  description: post.description,
-                                  imageUrl: post.imageUrl)),
-                            ),
-                          );
-                        },
-                        leading: Image.file(
-                          File(
-                            post!.imageUrl.toString(),
+          child: ValueListenableBuilder(
+        valueListenable: Hive.box<Post>('post').listenable(),
+        builder: (context, Box<Post> box, _) {
+          return ListView.builder(
+            itemCount: box.length,
+            itemBuilder: (ctx, i) {
+              final post = box.getAt(i);
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListTile(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: ((ctx) => ViewPostScreen(
+                                title: post.title,
+                                description: post.description,
+                                imageUrl: post.imageUrl)),
                           ),
+                        );
+                      },
+                      leading: Image.file(
+                        File(
+                          post!.imageUrl.toString(),
                         ),
-                        title: Text(post.title.toString()),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: ((ctx) => EditPostScreen(
-                                          title: post.title,
-                                          description: post.description,
-                                          imageUrl: post.imageUrl,
-                                          index: i,
-                                        )),
-                                  ),
-                                );
-                              },
-                              icon: const Icon(Icons.edit),
-                            ),
-                            IconButton(
-                              onPressed: () {
-                                box.deleteAt(i);
-                              },
-                              icon: const Icon(Icons.delete),
-                            ),
-                          ],
-                        ),
+                      ),
+                      title: Text(post.title.toString()),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: ((ctx) => EditPostScreen(
+                                      title: post.title,
+                                      description: post.description,
+                                      imageUrl: post.imageUrl,
+                                      index: i)),
+                                ),
+                              );
+                            },
+                            icon: const Icon(Icons.edit),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              box.deleteAt(i);
+                            },
+                            icon: const Icon(Icons.delete),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                );
-              },
-            );
-          },
-        ),
-      ),
+                ),
+              );
+            },
+          );
+        },
+      )),
       floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                // ignore: prefer_const_constructors
-                builder: (ctx) => AddPostScreen(),
+                builder: (ctx) => const AddPostScreen(),
               ),
             );
           },

@@ -33,6 +33,7 @@ class _EditPostScreenState extends State<EditPostScreen> {
 
   getImage() async {
     final image =
+        // ignore: invalid_use_of_visible_for_testing_member
         await ImagePicker.platform.getImage(source: ImageSource.gallery);
 
     setState(() {
@@ -46,11 +47,11 @@ class _EditPostScreenState extends State<EditPostScreen> {
     if (isValid) {
       final postBox = Hive.box<Post>('post');
       final post = postBox.getAt(widget.index);
-      post?.title = _title ?? widget.title;
-      post?.description = _description ?? widget.description;
-      post?.imageUrl = _image?.path ?? widget.imageUrl;
-      postBox.putAt(widget.index,
-          post!); // Update the value of the post at the given index
+      post!.title = _title ?? widget.title;
+      post.description = _description ?? widget.description;
+      post.imageUrl = _image?.path ?? widget.imageUrl;
+      postBox.putAt(
+          widget.index, post); // Save the updated post object to the postBox
       Navigator.of(context).pop();
     }
   }
@@ -60,12 +61,6 @@ class _EditPostScreenState extends State<EditPostScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Edit Post'),
-        actions: [
-          IconButton(
-            onPressed: submitData,
-            icon: const Icon(Icons.save),
-          ),
-        ],
       ),
       body: SafeArea(
         child: Form(

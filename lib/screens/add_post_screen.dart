@@ -26,6 +26,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
 
   getImage() async {
     final image =
+        // ignore: invalid_use_of_visible_for_testing_member
         await ImagePicker.platform.getImage(source: ImageSource.gallery);
 
     setState(() {
