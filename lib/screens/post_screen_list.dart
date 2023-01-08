@@ -60,8 +60,8 @@ class _PostListScreenState extends State<PostListScreen> {
                         );
                       },
                       leading: SizedBox(
-                        width: 1,
-                        height: 1,
+                        width: 10,
+                        height: 10,
                         child: Image.file(
                           File(
                             post!.imageUrl.toString(),

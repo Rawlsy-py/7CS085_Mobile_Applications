@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -50,11 +50,14 @@ class _EditPostScreenState extends State<EditPostScreen> {
       post!.title = _title ?? widget.title;
       post.description = _description ?? widget.description;
       post.imageUrl = _image?.path ?? widget.imageUrl;
-      postBox.putAt(
-          widget.index, post); // Save the updated post object to the postBox
+      postBox.putAt(widget.index, post); // Save the updated post object to the postBox
+      // Update the ValueNotifier object
+      Provider.of<ValueNotifier<Box<Post>>>(context, listen: false).value =
+          Hive.box<Post>('Post');
       Navigator.of(context).pop();
     }
   }
+
 
   @override
   Widget build(BuildContext context) {

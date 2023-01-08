@@ -1,7 +1,7 @@
 // ignore_for_file: unused_import
 
 import 'dart:io';
-
+import 'package:provider/provider.dart';
 import 'package:my_app/models/post.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -38,7 +38,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
     final isValid = _formKey.currentState!.validate();
 
     if (isValid) {
-      Hive.box<Post>('post').add(
+      Hive.box<Post>('Post').add(
         Post(
           title: title,
           description: description,
@@ -46,9 +46,13 @@ class _AddPostScreenState extends State<AddPostScreen> {
           dateTime: DateTime.now().toIso8601String(),
         ),
       );
+      // Update the ValueNotifier object
+      Provider.of<ValueNotifier<Box<Post>>>(context, listen: false).value =
+          Hive.box<Post>('Post');
       Navigator.of(context).pop();
     }
   }
+
 
   @override
   Widget build(BuildContext context) {

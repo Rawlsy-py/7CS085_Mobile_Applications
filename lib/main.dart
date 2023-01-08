@@ -13,7 +13,7 @@ void main() async {
   Directory directory = await getApplicationDocumentsDirectory();
   Hive.init(directory.path);
   Hive.registerAdapter<Post>(PostAdapter());
-  await Hive.openBox<Post>('post');
+  Hive.openBox<Post>('post');
 
   runApp(const MyApp());
 }
