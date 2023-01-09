@@ -44,5 +44,3 @@ class ViewPostScreen extends StatelessWidget {
     );
   }
 }
-
-// comment to force commit

@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 
 import 'models/post.dart';
 import 'package:my_app/screens/post_screen_list.dart';
@@ -25,9 +26,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData.light(),
-      home: const PostListScreen(),
+    return MultiProvider(
+      providers: [
+        Provider(
+          create: (_) => ValueNotifier<Box<Post>>(Hive.box<Post>('post')),
+        ),
+      ],
+      child: MaterialApp(
+        theme: ThemeData.light(),
+        home: const PostListScreen(),
+      ),
     );
   }
 }

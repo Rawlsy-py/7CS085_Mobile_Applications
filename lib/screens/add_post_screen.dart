@@ -74,66 +74,71 @@ class _AddPostScreenState extends State<AddPostScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Create a Post'),
-        actions: [
-          IconButton(
-            onPressed: submitData,
-            icon: const Icon(Icons.save),
-          ),
-        ],
-      ),
-      body: SafeArea(
-        child: Form(
-          key: _formKey,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ListView(
-              children: [
-                TextFormField(
-                  decoration: const InputDecoration(
-                    label: Text('Title'),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => boxNotifier,
+        ),
+      ],
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Create a Post'),
+          actions: [
+            IconButton(
+              onPressed: submitData,
+              icon: const Icon(Icons.save),
+            ),
+          ],
+        ),
+        body: SafeArea(
+          child: Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView(
+                children: [
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      label: Text('Title'),
+                    ),
+                    autocorrect: false,
+                    onChanged: (val) {
+                      setState(() {
+                        title = val;
+                      });
+                    },
                   ),
-                  autocorrect: false,
-                  onChanged: (val) {
-                    setState(() {
-                      title = val;
-                    });
-                  },
-                ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    label: Text('Description'),
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      label: Text('Description'),
+                    ),
+                    autocorrect: false,
+                    minLines: 2,
+                    maxLines: 10,
+                    onChanged: (val) {
+                      setState(() {
+                        description = val;
+                      });
+                    },
                   ),
-                  autocorrect: false,
-                  minLines: 2,
-                  maxLines: 10,
-                  onChanged: (val) {
-                    setState(() {
-                      description = val;
-                    });
-                  },
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                _image == null
-                    ? Container()
-                    : Image.file(
-                        File(_image!.path),
-                      ),
-              ],
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  _image == null
+                      ? Container()
+                      : Image.file(
+                          File(_image!.path),
+                        ),
+                ],
+              ),
             ),
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: getImage,
-        child: const Icon(Icons.collections),
+        floatingActionButton: FloatingActionButton(
+          onPressed: getImage,
+          child: const Icon(Icons.collections),
+        ),
       ),
     );
   }
 }
-
-// comment to force commit

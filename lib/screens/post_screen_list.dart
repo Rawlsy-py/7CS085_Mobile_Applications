@@ -39,6 +39,7 @@ class _PostListScreenState extends State<PostListScreen> {
             onPressed: () {
               // Update the value of the ValueNotifier object
               boxNotifier.value = Hive.box<Post>('post');
+              setState(() {}); // Add this line
             },
           ),
         ],
