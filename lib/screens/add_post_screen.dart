@@ -18,6 +18,9 @@ class AddPostScreen extends StatefulWidget {
 }
 
 class _AddPostScreenState extends State<AddPostScreen> {
+  // Create the ValueNotifier object
+  final boxNotifier = ValueNotifier(Hive.box<Post>('post'));
+
   final _formKey = GlobalKey<FormState>();
 
   XFile? _image;
@@ -38,21 +41,36 @@ class _AddPostScreenState extends State<AddPostScreen> {
     final isValid = _formKey.currentState!.validate();
 
     if (isValid) {
-      Hive.box<Post>('Post').add(
+      // Use the ValueNotifier object to access the 'post' box
+      final box = boxNotifier.value;
+      box.add(
         Post(
-          title: title,
-          description: description,
-          imageUrl: _image?.path,
+          title: title!,
+          description: description!,
+          imageUrl: _image!.path,
           dateTime: DateTime.now().toIso8601String(),
         ),
       );
       // Update the ValueNotifier object
-      Provider.of<ValueNotifier<Box<Post>>>(context, listen: false).value =
-          Hive.box<Post>('Post');
+      boxNotifier.value = box;
       Navigator.of(context).pop();
     }
   }
 
+  @override
+  void initState() {
+    super.initState();
+
+    // Initialize the ValueNotifier object
+    boxNotifier.value = Hive.box<Post>('post');
+  }
+
+  @override
+  void dispose() {
+    // Dispose of the ValueNotifier object when the widget is disposed
+    boxNotifier.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
